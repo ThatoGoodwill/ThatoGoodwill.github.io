@@ -189,7 +189,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
         
         if (response.ok) {
             // Success - show confirmation
-            alert('✓ Message sent! I\'ll respond within 24 hours.');
+            alert('✓ Message sent successful! thank you for contacting me');
             form.reset();
         } else {
             // Show error from Formspree
