@@ -204,6 +204,9 @@ section {
     --black: #ecf0f1;
     --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
+[data-theme="dark"] h1 {
+  color: #add8e6 !important; /* Light blue */
+}
 
 /* Dark Theme Specific Styles */
 [data-theme="dark"] body {
