@@ -166,38 +166,29 @@ document.querySelectorAll('.project-card').forEach(card => {
     });
     
     // Contact form submission
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            // Here you would typically send the form data to a server
-            // For demonstration, we'll just log it and show an alert
-            console.log({ name, email, subject, message });
-            
-            alert('Thank you for your message, Thato will get back to you soon!');
-            contactForm.reset();
-        });
-    }
-    
-    // Initialize animations when elements come into view
-    const animateOnScroll = function() {
-        const elements = document.querySelectorAll('.about-image, .about-text, .skills-category, .project-card, .timeline-item, .cert-item');
+   document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
         
-        elements.forEach(element => {
-            if (isElementInViewport(element)) {
-                element.classList.add('animate');
-            }
+        fetch(this.action, {
+            method: 'POST',
+            body: new FormData(this),
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+            alert('Message sent successfully!');
+            this.reset();
+        })
+        .catch(error => {
+            alert('Oops! There was a problem sending your message.');
+        })
+        .finally(() => {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
         });
-    };
-    
+    });
     window.addEventListener('scroll', animateOnScroll);
     animateOnScroll(); // Run once on page load
 }
