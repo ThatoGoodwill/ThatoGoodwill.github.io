@@ -165,30 +165,59 @@ document.querySelectorAll('.project-card').forEach(card => {
         });
     });
     
-    // Contact form submission
-   document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const submitButton = this.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
-        
-        fetch(this.action, {
+   / Contact form submission with detailed error handling
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
+    
+    // Show loading state
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    
+    try {
+        const response = await fetch(this.action, {
             method: 'POST',
             body: new FormData(this),
-            headers: { 'Accept': 'application/json' }
-        })
-        .then(response => {
-            alert('Message sent successfully!');
-            this.reset();
-        })
-        .catch(error => {
-            alert('Oops! There was a problem sending your message.');
-        })
-        .finally(() => {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Send Message';
+            headers: { 
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest' // Helps Formspree identify AJAX requests
+            }
         });
-    });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+            // Success - show confirmation
+            alert('Message sent successfully! I\'ll get back to you soon.');
+            this.reset();
+            
+            // Optional: Redirect or show on-page confirmation
+            // window.location.href = '/thank-you.html';
+        } else {
+            // Show specific error from Formspree
+            throw new Error(result.error || 'Form submission failed');
+        }
+    } catch (error) {
+        console.error('Form submission error:', error);
+        
+        // Detailed error messages
+        if (error.message.includes('Failed to fetch')) {
+            alert('Network error. Please check your internet connection.');
+        } else if (error.message.includes('Formspree')) {
+            alert('Form service error. Please try again later.');
+        } else {
+            alert(`Error: ${error.message}`);
+        }
+        
+        // Optional: Log the error to a service
+        // logErrorToService(error);
+    } finally {
+        // Reset button state
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+    }
+});
     window.addEventListener('scroll', animateOnScroll);
     animateOnScroll(); // Run once on page load
 }
