@@ -48,6 +48,21 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
             navLinks.classList.remove('active');
         });
     });
+      function toggleReadMore() {
+    const dots = document.getElementById("dots");
+    const moreText = document.getElementById("more");
+    const btnText = document.getElementById("readMoreBtn");
+
+    if (moreText.style.display === "none") {
+      moreText.style.display = "inline";
+      dots.style.display = "none";
+      btnText.textContent = "Read Less";
+    } else {
+      moreText.style.display = "none";
+      dots.style.display = "inline";
+      btnText.textContent = "Read More";
+    }
+  }
     // Add this to your existing script.js
 // Project hover effects
 document.querySelectorAll('.project-card').forEach(card => {
