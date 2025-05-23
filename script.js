@@ -48,15 +48,16 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
             navLinks.classList.remove('active');
         });
     });
-  function toggleReadMore() {
-    const container = document.getElementById("aboutText");
-    const btn = document.getElementById("readMoreBtn");
+   function toggleReadMore() {
+    var moreText = document.querySelector(".more-text");
+    var btnText = document.getElementById("readMoreBtn");
 
-    container.classList.toggle("expanded");
-    if (container.classList.contains("expanded")) {
-      btn.textContent = "Read Less";
+    if (moreText.style.display === "none" || moreText.style.display === "") {
+      moreText.style.display = "inline";
+      btnText.textContent = "Read Less";
     } else {
-      btn.textContent = "Read More";
+      moreText.style.display = "none";
+      btnText.textContent = "Read More";
     }
   }
     // Add this to your existing script.js
