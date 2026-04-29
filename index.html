@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thato Matamane | Software Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        /* All your existing styles remain exactly the same */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent-primary: #6c5ce7;
+            --accent-secondary: #a463f5;
+            --accent-glow: rgba(108, 92, 231, 0.3);
+            --border-color: #2a2a2a;
+            --success: #00b894;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #6c5ce7 0%, #a463f5 100%);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-secondary);
+        }
+
+        /* Navigation */
+        #navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo span {
+            color: var(--accent-primary);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            margin-left: auto;
+            margin-right: 2rem;
+        }
+
+        .theme-switch {
+            display: none;
+        }
+
+        .theme-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--bg-card);
+            border-radius: 50px;
+            padding: 0 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-label i {
+            font-size: 0.9rem;
+            z-index: 1;
+            color: var(--text-secondary);
+        }
+
+        .theme-label .fa-sun {
+            color: #fdcb6e;
+        }
+
+        .theme-label .fa-moon {
+            color: #6c5ce7;
+        }
+
+        .theme-ball {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-switch:checked + .theme-label .theme-ball {
+            transform: translateX(30px);
+        }
+
+        /* Menu Button for Mobile */
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+        }
+
+        .menu-btn__burger {
+            width: 30px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .menu-btn__burger::before,
+        .menu-btn__burger::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn__burger::before {
+            transform: translateY(-8px);
+        }
+
+        .menu-btn__burger::after {
+            transform: translateY(8px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+            top: -25%;
+            left: -25%;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content h2 {
+            font-size: 2rem;
+            color: var(--accent-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--gradient-2);
+            color: white;
+            box-shadow: 0 5px 15px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--accent-primary);
+            color: var(--text-primary);
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .image-wrapper {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--accent-primary);
+            box-shadow: 0 0 50px var(--accent-glow);
+            position: relative;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title span {
+            color: var(--accent-primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title span::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--accent-primary);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* ---------- NEW CODE OVERLAY STYLES (added without breaking existing) ---------- */
+        .about-image {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            border: 3px solid var(--accent-primary);
+            box-shadow: 0 10px 30px var(--accent-glow);
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        /* Code Overlay - appears on hover */
+ .code-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(4px);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    visibility: visible;
+    z-index: 20;
+    overflow: hidden;
+    transition: opacity 0.5s ease;
+}
+
+/* Class to hide the overlay */
+.code-overlay.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+        .about-image:hover .code-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .code-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-bottom: 1px solid var(--accent-primary);
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .code-title {
+            flex: 1;
+            text-align: center;
+            color: var(--accent-primary);
+            font-family: monospace;
+            font-size: 0.7rem;
+        }
+
+        .code-content {
+            flex: 1;
+            padding: 0.8rem;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.65rem;
+            line-height: 1.35;
+        }
+
+        .code-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .code-line {
+            display: block;
+            white-space: pre-wrap;
+            word-break: break-word;
+            opacity: 0;
+            transform: translateY(5px);
+            animation: fadeInUp 0.2s forwards;
+            margin-bottom: 0.1rem;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .keyword { color: #c792ea; font-weight: bold; }
+        .class-name { color: #82aaff; }
+        .string { color: #c3e88d; }
+        .comment { color: #546e7a; font-style: italic; }
+        .method { color: #89ddff; }
+        .bracket { color: #ffcb6b; }
+        .property { color: #f78c6c; }
+
+        .code-controls {
+            padding: 0.4rem;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .code-btn {
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.6rem;
+            transition: all 0.3s ease;
+        }
+
+        .code-btn:hover {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .code-status {
+            text-align: center;
+            padding: 0.2rem;
+            font-size: 0.55rem;
+            color: var(--accent-primary);
+            font-family: monospace;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .progress-bar {
+            height: 2px;
+            background: var(--accent-primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        /* ---------- END OF CODE OVERLAY STYLES ---------- */
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-primary);
+        }
+
+        .about-preview p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .more-text {
+            display: none;
+        }
+
+        .more-text.show {
+            display: inline;
+        }
+
+        .read-more-btn {
+            background: transparent;
+            border: none;
+            color: var(--accent-primary);
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .about-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .detail-item i {
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+        }
+
+        .detail-item h4 {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .detail-item p {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 6rem 0;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .skills-category h3 {
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+        }
+
+        .skills-category h3 i {
+            margin-right: 0.5rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .skill-bar {
+            height: 10px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient-2);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 6rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .project-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.8rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .project-image {
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border-bottom: 3px solid var(--accent-primary);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            background: #1a1a1a;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.02);
+        }
+
+        .project-links {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transition: bottom 0.3s ease;
+        }
+
+        .project-card:hover .project-links {
+            bottom: 0;
+        }
+
+        .project-links a {
+            width: 45px;
+            height: 45px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            transform: scale(0);
+        }
+
+        .project-card:hover .project-links a {
+            transform: scale(1);
+        }
+
+        .project-links a:hover {
+            background: var(--accent-secondary);
+            transform: scale(1.1) !important;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech span {
+            padding: 0.3rem 0.8rem;
+            background: rgba(108, 92, 231, 0.1);
+            color: var(--accent-primary);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+        }
+
+        .live-demo-btn {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: linear-gradient(135deg, var(--success), #00cec9);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .live-demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.3);
+        }
+
+        .demo-disabled {
+            background: #666;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .view-more {
+            text-align: center;
+        }
+
+        /* Education Section */
+        .education {
+            padding: 6rem 0;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--accent-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .timeline-date {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            width: calc(50% - 3rem);
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-content h3 {
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+        }
+
+        /* Certifications */
+        .certifications {
+            margin-top: 4rem;
+        }
+
+        .certifications h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+        }
+
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cert-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .cert-image {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border-bottom: 3px solid var(--accent-primary);
+        }
+
+        .cert-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            background: #1a1a1a;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover .cert-image img {
+            transform: scale(1.02);
+        }
+
+        .cert-links {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transition: bottom 0.3s ease;
+        }
+
+        .cert-card:hover .cert-links {
+            bottom: 0;
+        }
+
+        .cert-links a {
+            width: 45px;
+            height: 45px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            transform: scale(0);
+        }
+
+        .cert-card:hover .cert-links a {
+            transform: scale(1);
+        }
+
+        .cert-links a:hover {
+            background: var(--accent-secondary);
+            transform: scale(1.1) !important;
+        }
+
+        .cert-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-primary);
+        }
+
+        .cert-info p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .cert-date {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: rgba(108, 92, 231, 0.1);
+            color: var(--accent-primary);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            align-self: flex-start;
+        }
+
+        .view-cert-btn {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: linear-gradient(135deg, var(--success), #00cec9);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .view-cert-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.3);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+        }
+
+        .info-item h4 {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .info-item p {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .contact-social {
+            margin-top: 2rem;
+        }
+
+        .contact-social h4 {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 0 0;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about h3,
+        .footer-links h3,
+        .footer-contact h3 {
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-about p {
+            color: var(--text-secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .footer-contact p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-contact i {
+            color: var(--accent-primary);
+            margin-right: 0.5rem;
+        }
+
+        .footer-bottom {
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .image-wrapper {
+                width: 300px;
+                height: 300px;
+                margin: 0 auto;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .certs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                margin-left: 0;
+                text-align: left;
+            }
+
+            .timeline-date {
+                left: 0;
+                transform: translateX(0);
+            }
+
+            .timeline-content {
+                width: calc(100% - 3rem);
+                margin-left: 3rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="#home" class="logo">Thato<span> Matamane Goodwill</span></a>
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch" class="theme-switch">
+                <label for="theme-switch" class="theme-label">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                    <span class="theme-ball"></span>
+                </label>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-btn">
+                <div class="menu-btn__burger"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Thato Goodwill Matamane</h1>
+                <h2>Aspiring Software Developer</h2>
+                <p>
+                            I am a passionate IT student who recently gained skills in programming and various aspects of Information Technology through my studies at the Central University of Technology (CUT).
+                
+                <div class="hero-btns">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-wrapper">
+                    <img src="images/thato3.jpg" alt="Thato Matamane" onerror="this.src='https://via.placeholder.com/400x400?text=Thato'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with CODE OVERLAY on image -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About <span>Me</span></h2>
+            <div class="about-content">
+                <div class="about-image" id="codeImageContainer">
+                    <img src="images/Thato4.jpg" alt="Thato Matamane" onerror="this.src='https://via.placeholder.com/400x500?text=Thato'">
+                    <!-- Code Overlay -->
+                    <div class="code-overlay" id="codeOverlay">
+                        <div class="code-header">
+                            <div class="window-dots">
+                                <div class="dot red"></div>
+                                <div class="dot yellow"></div>
+                                <div class="dot green"></div>
+                            </div>
+                            <div class="code-title"><i class="fas fa-code"></i> ThatoMatamane.cs</div>
+                            <div style="width: 50px;"></div>
+                        </div>
+                        <div class="code-content" id="codeContainer"></div>
+                        <div class="code-controls">
+                            <button class="code-btn" id="replayCodeBtn"><i class="fas fa-redo-alt"></i> Replay</button>
+                            <button class="code-btn" id="skipCodeBtn"><i class="fas fa-fast-forward"></i> Full Code</button>
+                        </div>
+                        <div class="code-status" id="codeStatus">
+                            <i class="fas fa-terminal"></i> Hover to see developer profile code...
+                        </div>
+                        <div class="progress-bar" id="codeProgress"></div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h3>Who am I?</h3>
+                    <div id="aboutText" class="about-preview">
+                        <p>
+                           Passionate Information Technology Student with strong skills in software development, mobile application development, and web technologies.
+                            Experienced in building full-stack systems using ASP.NET and Flutter, with a solid foundation in software engineering principles and the Software Development Life Cycle (SDLC). 
+                            FNB App Academy certified developer with a strong interest in financial technology, problem-solving, and building innovative digital solutions that improve business processes and customer experience
+                            
+                            <span class="more-text" style="display: none;">
+                                <br><br>
+                                Throughout my academic journey, I have built a variety of projects that challenged me to think critically and solve real-world problems with code. These experiences not only helped me understand how different technologies come together but also taught me the value of teamwork, continuous learning, and attention to detail. I've worked with programming languages like Python, C#, and Dart (Flutter), and have also explored database management, user interface design, and version control using Git.
+                                
+                                <br><br>
+                                My goal is to become a professional developer who creates meaningful digital solutions that make people's lives easier. I'm eager to learn from real-world experience, collaborate with experienced teams, and grow into a role where I can contribute, learn, and innovate.
+                            </span>
+                        </p>
+                        <button onclick="toggleReadMore()" id="readMoreBtn" class="read-more-btn">Read More</button>
+                    </div>
+
+                    <div class="about-details">
+                        <div class="detail-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <h4>Name:</h4>
+                                <p>Thato Goodwill Matamane</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Location:</h4>
+                                <p>South Africa</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <h4>Education:</h4>
+                                <p>Diploma in Information Technology (Final Year)</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-university"></i>
+                            <div>
+                                <h4>Institution:</h4>
+                                <p>Central University of Technology</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/thatogoodwill" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/thato-goodwill-matamane-788a312bb" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://web.facebook.com/goodwill.modiko.39" target="_blank"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section (unchanged) -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">My <span>Skills</span></h2>
+            <div class="skills-container">
+                <!-- Technical Skills -->
+                <div class="skills-category">
+                    <h3><i class="fas fa-code"></i> Technical Skills</h3>
+                    <div class="skill-item">
+                        <h4>ASP.NET MVC</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Flutter</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <h4>JavaScript</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="50"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <h4>HTML/CSS</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="100"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Figma</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Python</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="75"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Professional Skills -->
+                <div class="skills-category">
+                    <h3><i class="fas fa-user-tie"></i> Professional Skills</h3>
+                    <div class="skill-item">
+                        <h4>Problem Solving</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Teamwork</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Communication</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Project Management</h4>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="75"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section (unchanged) -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My <span>Projects</span></h2>
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="app">Mobile App</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="design">Design</button>
+            </div>
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Leave Management System - Web -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="images/leaveflow.jpg" alt="Leave Management System" onerror="this.src='https://via.placeholder.com/600x400/2a2a2a/6c5ce7?text=Leave+Management'">
+                        <div class="project-links">
+                            <a href="https://github.com/ThatoGoodwill/leave-management-system" target="_blank" title="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Leave Management System</h3>
+                        <p>Complete leave management solution built with ASP.NET MVC and Firebase. Features include leave requests, approvals, and real-time updates.</p>
+                        <div class="project-tech">
+                            <span>ASP.NET MVC</span>
+                            <span>Firebase</span>
+                            <span>C#</span>
+                            <span>Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EMI Calculator - App -->
+                <div class="project-card" data-category="app">
+                    <div class="project-image">
+                        <img src="images/emi-calculator.jpg" alt="EMI Calculator" onerror="this.src='https://via.placeholder.com/600x400/2a2a2a/6c5ce7?text=EMI+Calculator'">
+                        <div class="project-links">
+                            <a href="https://github.com/thatogoodwill/emi-calculator" target="_blank" title="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>EMI Calculator</h3>
+                        <p>Interactive loan calculator with real-time updates, visual charts, and detailed payment breakdown. Calculate monthly installments instantly!</p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>Chart.js</span>
+                        </div>
+                        <a href="https://emi-calculator-kappa-three.vercel.app" target="_blank" class="live-demo-btn">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Weather App - Python -->
+                <div class="project-card" data-category="python">
+                    <div class="project-image">
+                        <img src="images/weather app.JPG" alt="Weather App" onerror="this.src='https://via.placeholder.com/600x400/2a2a2a/6c5ce7?text=Weather+App'">
+                        <div class="project-links">
+                            <a href="https://github.com/thatogoodwill/weather-app" target="_blank" title="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Weather App</h3>
+                        <p>Desktop weather application with real-time data from OpenWeather API. Features include current conditions, 5-day forecast, and interactive maps.</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Tkinter</span>
+                            <span>OpenWeather API</span>
+                            <span>Requests</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Book App - App -->
+                <div class="project-card" data-category="app">
+                    <div class="project-image">
+                        <img src="images/contact-book.jpg" alt="Contact Book App" onerror="this.src='https://via.placeholder.com/600x400/2a2a2a/6c5ce7?text=Contact+Book'">
+                        <div class="project-links">
+                            <a href="https://github.com/thatogoodwill/contact-book" target="_blank" title="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Contact Book App</h3>
+                        <p>Feature-rich contact management application with search, import/export, and cloud backup functionality. Built with HTML, CSS, and JavaScript.</p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>LocalStorage</span>
+                        </div>
+                        <a href="https://contact-book-ten-pied.vercel.app" target="_blank" class="live-demo-btn">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Memory Game - Web -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="images/memorygame.JPG" alt="Memory Game" onerror="this.src='https://via.placeholder.com/600x400/2a2a2a/6c5ce7?text=Memory+Game'">
+                        <div class="project-links">
+                            <a href="https://github.com/thatogoodwill/memory-game" target="_blank" title="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Memory Game</h3>
+                        <p>Classic memory matching game with multiple difficulty levels, score tracking, and sound effects. Fun for all ages!</p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>LocalStorage</span>
+                        </div>
+                        <a href="https://memory-game-eh670odla-thatogoodwills-projects.vercel.app/" target="_blank" class="live-demo-btn">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- UI/UX Designs - Design -->
+                <div class="project-card" data-category="design">
+                    <div class="project-image">
+                        <img src="images/roxycakes.JPG" alt="UI/UX Designs" onerror="this.src='https://via.placeholder.com/600x400/2a2a2a/6c5ce7?text=UI+Designs'">
+                        <div class="project-links">
+                            <a href="https://www.figma.com/proto/G4AKOaavDGilFRCrvA2Tup/Roxy-Cakes-Shop" target="_blank" title="View in Figma">
+                                <i class="fab fa-figma"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>UI/UX Designs</h3>
+                        <p>Collection of mobile and web interfaces including e-commerce, dashboard, and social media app designs created in Figma.</p>
+                        <div class="project-tech">
+                            <span>Figma</span>
+                            <span>UI/UX</span>
+                            <span>Prototyping</span>
+                            <span>Wireframing</span>
+                        </div>
+                        <a href="https://www.figma.com/proto/G4AKOaavDGilFRCrvA2Tup/Roxy-Cakes-Shop" target="_blank" class="live-demo-btn">
+                            <i class="fab fa-figma"></i> View in Figma
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="view-more">
+                <a href="https://github.com/thatogoodwill" target="_blank" class="btn btn-primary">View All on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section (unchanged) -->
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title">My <span>Education</span></h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2023 - 2025</div>
+                    <div class="timeline-content">
+                        <h3>Diploma in Information Technology</h3>
+                        <h4>Central University of Technology</h4>
+                        <p>Majors: Software Development, Software Engineering, Technical Programming</p>
+                        <p>Final year student with strong academic performance and practical project experience.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2021</div>
+                    <div class="timeline-content">
+                        <h3>National Senior Certificate</h3>
+                        <h4>Kgauho Secondary School</h4>
+                        <p>Passed with Bachelors</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="certifications">
+                <h3>Certifications</h3>
+                <div class="certs-grid" id="certsGrid">
+                    <div class="cert-card">
+                        <div class="cert-image">
+                            <img src="images/sd cert.JPG" alt="Saiket Systems Software Development Certificate" onerror="this.src='https://via.placeholder.com/600x400/2a2a2a/6c5ce7?text=FNB+Software+Dev'">
+                            <div class="cert-links">
+                                <a href="certificates/Thato Goodwill Matamane .pdf" target="_blank" title="View Certificate PDF">
+                                    <i class="fas fa-file-pdf"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="cert-info">
+                            <h4>Software Development Certification</h4>
+                            <p>Issued by: Saiket Systems</p>
+                            <p>Intensive program covering software engineering principles, developing tasks, and best practices.</p>
+                            <span class="cert-date">2026</span>
+                            <a href="certificates/Thato Goodwill Matamane .pdf" target="_blank" class="view-cert-btn">
+                                <i class="fas fa-eye"></i> View Certificate
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="cert-card">
+                        <div class="cert-image">
+                            <img src="images/fnb-cert.JPG" alt="FNB Full Stack Development Certificate" onerror="this.src='https://via.placeholder.com/600x400/2a2a2a/6c5ce7?text=FNB+Full+Stack'">
+                            <div class="cert-links">
+                                <a href="certificates/Thato-Goodwill-2-687F6FA101947-2025-07-22-13-01-53.pdf" target="_blank" title="View Certificate PDF">
+                                    <i class="fas fa-file-pdf"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="cert-info">
+                            <h4>Full Stack Development</h4>
+                            <p>Issued by: FNB App Academy</p>
+                            <p>Comprehensive training in full-stack web development including frontend, backend, and database technologies.</p>
+                            <span class="cert-date">2025</span>
+                            <a href="certificates/Thato-Goodwill-2-687F6FA101947-2025-07-22-13-01-53.pdf" target="_blank" class="view-cert-btn">
+                                <i class="fas fa-eye"></i> View Certificate
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="cert-card">
+                        <div class="cert-image">
+                            <img src="images/Responsive Web Certificate.png" alt="FreeCodeCamp Web Development Certificate" onerror="this.src='https://via.placeholder.com/600x400/2a2a2a/6c5ce7?text=FreeCodeCamp+Web'">
+                            <div class="cert-links">
+                                <a href="certificates/fcc-web.pdf" target="_blank" title="View Certificate PDF">
+                                    <i class="fas fa-file-pdf"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="cert-info">
+                            <h4>Responsive Web Design</h4>
+                            <p>Issued by: FreeCodeCamp</p>
+                            <p>Comprehensive course covering HTML5, CSS3, Flexbox, CSS Grid, and responsive design principles.</p>
+                            <span class="cert-date">2024</span>
+                            <a href="certificates/fcc-web.pdf" target="_blank" class="view-cert-btn">
+                                <i class="fas fa-eye"></i> View Certificate
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (unchanged) -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In <span>Touch</span></h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email:</h4>
+                            <p>thatogoodwillmatamane@email.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone:</h4>
+                            <p>+27 72 261 1950</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location:</h4>
+                            <p>Bloemfontein, South Africa</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-social">
+                        <h4>Follow Me:</h4>
+                        <div class="social-links">
+                            <a href="https://github.com/thatogoodwill" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/thato-goodwill-matamane-788a312bb" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://web.facebook.com/goodwill.modiko.39" target="_blank"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Me a Message</h3>
+                    <form id="contactForm" action="https://formspree.io/f/mkgreedd" method="POST">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Thato Matamane</h3>
+                    <p>Software Developer & IT Specialist with expertise in ASP.NET, Flutter, Python, and UI/UX design.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> thatogoodwillmatamane@email.com</p>
+                    <p><i class="fas fa-phone"></i> +27 72 261 1950</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Bloemfontein, South Africa</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 Thato Goodwill Matamane. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+    // Original functions preserved
+    function filterProjects(filter) {
+        const projects = document.querySelectorAll('.project-card');
+        projects.forEach(project => {
+            if (filter === 'all' || project.dataset.category === filter) {
+                project.style.display = 'block';
+            } else {
+                project.style.display = 'none';
+            }
+        });
+    }
+
+    function toggleReadMore() {
+        const moreText = document.querySelector('.more-text');
+        const btn = document.getElementById('readMoreBtn');
+        
+        if (moreText.style.display === 'none' || !moreText.style.display) {
+            moreText.style.display = 'inline';
+            btn.textContent = 'Read Less';
+        } else {
+            moreText.style.display = 'none';
+            btn.textContent = 'Read More';
+        }
+    }
+
+    function animateSkillBars() {
+        const skillBars = document.querySelectorAll('.skill-progress');
+        skillBars.forEach(bar => {
+            const level = bar.getAttribute('data-level');
+            bar.style.width = level + '%';
+        });
+    }
+
+    function handleBackToTop() {
+        const backToTop = document.getElementById('backToTop');
+        if (window.scrollY > 300) {
+            backToTop.classList.add('show');
+        } else {
+            backToTop.classList.remove('show');
+        }
+    }
+
+    function toggleMobileMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        const menuBtn = document.querySelector('.menu-btn');
+        
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                menuBtn.classList.toggle('open');
+            });
+        }
+    }
+
+    // ========== CODE TYPING ANIMATION WITH REPEATING CYCLE ==========
+    const codeLines = [
+        { text: "using System;", className: "keyword" },
+        { text: "using System.Collections.Generic;", className: "keyword" },
+        { text: "", className: "" },
+        { text: "namespace DeveloperProfile", className: "keyword" },
+        { text: "{", className: "bracket" },
+        { text: "    public class ThatoGoodwillMatamane", className: "class-name" },
+        { text: "    {", className: "bracket" },
+        { text: "        // Personal Information", className: "comment" },
+        { text: "        public string Name = \"Thato Goodwill Matamane\";", className: "property" },
+        { text: "        public string Location = \"South Africa\";", className: "property" },
+        { text: "        public string Education = \"Diploma in IT (Final Year)\";", className: "property" },
+        { text: "        public string Institution = \"Central University of Technology\";", className: "property" },
+        { text: "        public string Certification = \"FNB App Academy Certified\";", className: "property" },
+        { text: "", className: "" },
+        { text: "        // Technical Skills", className: "comment" },
+        { text: "        public List<string> Skills = new List<string>()", className: "" },
+        { text: "        {", className: "bracket" },
+        { text: "            \"C# / ASP.NET MVC\",", className: "string" },
+        { text: "            \"Flutter (Mobile Dev)\",", className: "string" },
+        { text: "            \"Web Technologies\",", className: "string" },
+        { text: "            \"Full-Stack Systems\",", className: "string" },
+        { text: "            \"Software Engineering\",", className: "string" },
+        { text: "            \"FinTech\"", className: "string" },
+        { text: "        };", className: "" },
+        { text: "", className: "" },
+        { text: "        public string Passion = \"Building innovative digital solutions\";", className: "string" },
+        { text: "", className: "" },
+        { text: "        public void Introduce()", className: "method" },
+        { text: "        {", className: "bracket" },
+        { text: "            Console.WriteLine(\"Hi, I'm Thato Goodwill Matamane\");", className: "" },
+        { text: "            Console.WriteLine($\"Location: {Location}\");", className: "" },
+        { text: "            Console.WriteLine($\"Education: {Education}\");", className: "" },
+        { text: "        }", className: "bracket" },
+        { text: "    }", className: "bracket" },
+        { text: "}", className: "bracket" }
+    ];
+
+    const codeContainer = document.getElementById('codeContainer');
+    const replayCodeBtn = document.getElementById('replayCodeBtn');
+    const skipCodeBtn = document.getElementById('skipCodeBtn');
+    const codeStatusSpan = document.getElementById('codeStatus');
+    const codeProgressBar = document.getElementById('codeProgress');
+    const codeOverlay = document.getElementById('codeOverlay');
+
+    let currentLineIdx = 0;
+    let typingInterval = null;
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function addCodeLine(index) {
+        if (index >= codeLines.length) {
+            if (typingInterval) clearInterval(typingInterval);
+            codeStatusSpan.innerHTML = '<i class="fas fa-check-circle"></i> Code complete!';
+            codeProgressBar.style.width = '100%';
+            
+            // HIDE the overlay after 1 second
+            setTimeout(function() {
+                codeOverlay.classList.add('hide');
+                codeStatusSpan.innerHTML = '<i class="fas fa-eye"></i> Viewing image...';
+                
+                // SHOW and RESTART after 1.5 seconds
+                setTimeout(function() {
+                    // Clear the container
+                    codeContainer.innerHTML = '';
+                    currentLineIdx = 0;
+                    codeProgressBar.style.width = '0%';
+                    
+                    // Show overlay again
+                    codeOverlay.classList.remove('hide');
+                    codeStatusSpan.innerHTML = '<i class="fas fa-terminal"></i> Restarting code animation...';
+                    
+                    // Restart typing
+                    startTypingAnimation(55);
+                }, 1500);
+            }, 1000);
+            
+            return true;
+        }
+        
+        const line = codeLines[index];
+        const lineDiv = document.createElement('div');
+        lineDiv.className = 'code-line';
+        
+        let className = '';
+        if (line.className === 'keyword') className = 'keyword';
+        else if (line.className === 'string') className = 'string';
+        else if (line.className === 'comment') className = 'comment';
+        else if (line.className === 'bracket') className = 'bracket';
+        else if (line.className === 'method') className = 'method';
+        else if (line.className === 'class-name') className = 'class-name';
+        else if (line.className === 'property') className = 'property';
+        
+        if (className) {
+            lineDiv.innerHTML = `<span class="${className}">${escapeHtml(line.text)}</span>`;
+        } else {
+            lineDiv.innerHTML = escapeHtml(line.text);
+        }
+        
+        codeContainer.appendChild(lineDiv);
+        codeContainer.scrollTop = codeContainer.scrollHeight;
+        
+        const progress = ((index + 1) / codeLines.length) * 100;
+        codeProgressBar.style.width = `${progress}%`;
+        codeStatusSpan.innerHTML = `<i class="fas fa-code"></i> Line ${index + 1} of ${codeLines.length}`;
+        
+        return false;
+    }
+
+    function startTypingAnimation(speed) {
+        speed = speed || 55;
+        if (typingInterval) clearInterval(typingInterval);
+        
+        typingInterval = setInterval(function() {
+            if (currentLineIdx < codeLines.length) {
+                addCodeLine(currentLineIdx);
+                currentLineIdx++;
+            } else {
+                clearInterval(typingInterval);
+            }
+        }, speed);
+    }
+
+    function replayCodeAnimation() {
+        codeContainer.innerHTML = '';
+        currentLineIdx = 0;
+        codeProgressBar.style.width = '0%';
+        codeStatusSpan.innerHTML = '<i class="fas fa-terminal"></i> Restarting code execution...';
+        if (typingInterval) clearInterval(typingInterval);
+        codeOverlay.classList.remove('hide');
+        startTypingAnimation(45);
+    }
+
+    function skipToFullCode() {
+        if (typingInterval) clearInterval(typingInterval);
+        codeContainer.innerHTML = '';
+        codeOverlay.classList.remove('hide');
+        
+        for (let i = 0; i < codeLines.length; i++) {
+            const line = codeLines[i];
+            const lineDiv = document.createElement('div');
+            lineDiv.className = 'code-line';
+            lineDiv.style.opacity = '1';
+            lineDiv.style.transform = 'translateY(0)';
+            
+            let className = '';
+            if (line.className === 'keyword') className = 'keyword';
+            else if (line.className === 'string') className = 'string';
+            else if (line.className === 'comment') className = 'comment';
+            else if (line.className === 'bracket') className = 'bracket';
+            else if (line.className === 'method') className = 'method';
+            else if (line.className === 'class-name') className = 'class-name';
+            else if (line.className === 'property') className = 'property';
+            
+            if (className) {
+                lineDiv.innerHTML = `<span class="${className}">${escapeHtml(line.text)}</span>`;
+            } else {
+                lineDiv.innerHTML = escapeHtml(line.text);
+            }
+            codeContainer.appendChild(lineDiv);
+        }
+        
+        currentLineIdx = codeLines.length;
+        codeProgressBar.style.width = '100%';
+        codeStatusSpan.innerHTML = '<i class="fas fa-check-circle"></i> Full code displayed!';
+        codeContainer.scrollTop = codeContainer.scrollHeight;
+        
+        // Auto restart after showing full code
+        setTimeout(function() {
+            replayCodeAnimation();
+        }, 3000);
+    }
+
+    // Start animation automatically when page loads
+    setTimeout(function() {
+        startTypingAnimation(55);
+    }, 500);
+    
+    if (replayCodeBtn) replayCodeBtn.addEventListener('click', replayCodeAnimation);
+    if (skipCodeBtn) skipCodeBtn.addEventListener('click', skipToFullCode);
+
+    // Initialize all original functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(animateSkillBars, 500);
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                filterProjects(btn.dataset.filter);
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', handleBackToTop);
+        toggleMobileMenu();
+
+        const themeSwitch = document.getElementById('theme-switch');
+        themeSwitch.addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.documentElement.style.setProperty('--bg-primary', '#ffffff');
+                document.documentElement.style.setProperty('--bg-secondary', '#f5f5f5');
+                document.documentElement.style.setProperty('--bg-card', '#ffffff');
+                document.documentElement.style.setProperty('--text-primary', '#333333');
+                document.documentElement.style.setProperty('--text-secondary', '#666666');
+                document.documentElement.style.setProperty('--border-color', '#dddddd');
+            } else {
+                document.documentElement.style.setProperty('--bg-primary', '#0a0a0a');
+                document.documentElement.style.setProperty('--bg-secondary', '#111111');
+                document.documentElement.style.setProperty('--bg-card', '#1a1a1a');
+                document.documentElement.style.setProperty('--text-primary', '#ffffff');
+                document.documentElement.style.setProperty('--text-secondary', '#b3b3b3');
+                document.documentElement.style.setProperty('--border-color', '#2a2a2a');
+            }
+        });
+    });
+</script>
+</body>
+</html>
